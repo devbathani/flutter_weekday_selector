@@ -79,10 +79,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_weekday_selector
-      sha256: c18cfd96bfe6dc7c88aa2e45386a1bec914b8151cea9838789a2c90b7981e3ed
+      sha256: "58cdd5465fbbf5ae7ead50c3452dcd0fc0aa38ab1a7b828af9746c112e94a595"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1"
+    version: "0.0.2"
   lints:
     dependency: transitive
     description:
