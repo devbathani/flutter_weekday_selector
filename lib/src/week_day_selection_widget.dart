@@ -69,7 +69,7 @@ class _WeekDaySelectorState extends State<WeekDaySelector> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(
         weekDays.length,
         (index) {
