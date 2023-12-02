@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_weekday_selector/flutter_weekday_selector.dart';
 
@@ -40,7 +41,10 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: WeekDaySelector(
           onSubmitted: (day) {
-            print(day);
+            if (kDebugMode) {
+              print(
+                  "${day.name} is ${day.isSelected ? 'selected' : 'unselected'}");
+            }
           },
         ),
       ),
