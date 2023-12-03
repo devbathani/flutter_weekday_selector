@@ -40,6 +40,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: WeekDaySelector(
+          // width: 100,
+          // height: 50,
           onSubmitted: (day) {
             if (kDebugMode) {
               print(

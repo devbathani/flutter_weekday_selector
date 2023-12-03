@@ -84,6 +84,7 @@ class _WeekDaySelectorState extends State<WeekDaySelector> {
 
   @override
   Widget build(BuildContext context) {
+    final defaultWith = (MediaQuery.of(context).size.width - 70) / 7;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(
@@ -100,11 +101,11 @@ class _WeekDaySelectorState extends State<WeekDaySelector> {
               select = weekDays[index].isSelected;
             },
             onPanUpdate: (details) {
-              double wHeight = widget.height ?? 25;
-              double height =
-                  (wHeight + (details.localPosition.dx < wHeight + 5 ? 0 : 15));
+              double wWidth = widget.width ?? defaultWith;
+              double width =
+                  (wWidth + (details.localPosition.dx < wWidth + 5 ? 0 : 15));
 
-              int xDrag = (details.localPosition.dx / height).round();
+              int xDrag = (details.localPosition.dx / width).round();
               int indexDrag = index + xDrag;
               if (indexDrag < 0) indexDrag = 0;
               if (indexDrag > 6) indexDrag = 6;
@@ -118,8 +119,8 @@ class _WeekDaySelectorState extends State<WeekDaySelector> {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
                 curve: Curves.easeInOut,
-                height: widget.height ?? 25,
-                width: widget.width ?? 25,
+                height: widget.height ?? defaultWith,
+                width: widget.width ?? defaultWith,
                 decoration: BoxDecoration(
                   shape: widget.shape ?? BoxShape.circle,
                   border: widget.border,
