@@ -14,6 +14,7 @@ class WeekDaySelector extends StatefulWidget {
     this.dayUnselectedColor,
     this.style,
     this.styleSelected,
+    this.fullWeekName = false,
   });
 
   /// Custom textstyle for the week day text
@@ -42,6 +43,9 @@ class WeekDaySelector extends StatefulWidget {
 
   ///Function to listen for selected day
   final Function(WeekDaysList) onSubmitted;
+
+  ///Bool to get full week name [sunday, monday , etc...]
+  final bool fullWeekName;
 
   @override
   State<WeekDaySelector> createState() => _WeekDaySelectorState();
@@ -131,14 +135,18 @@ class _WeekDaySelectorState extends State<WeekDaySelector> {
                       : widget.dayUnselectedColor ?? Colors.transparent,
                 ),
                 child: Center(
-                  child: Text(weekDays[index].week,
-                      style: weekDays[index].isSelected
-                          ? widget.styleSelected ??
-                              const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              )
-                          : widget.style),
+                  child: Text(
+                    widget.fullWeekName
+                        ? weekDays[index].name
+                        : weekDays[index].week,
+                    style: weekDays[index].isSelected
+                        ? widget.styleSelected ??
+                            const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            )
+                        : widget.style,
+                  ),
                 ),
               ),
             ),
