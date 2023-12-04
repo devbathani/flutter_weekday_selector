@@ -13,10 +13,14 @@ class WeekDaySelector extends StatefulWidget {
     this.daySelectedColor,
     this.dayUnselectedColor,
     this.style,
+    this.styleSelected,
   });
 
   /// Custom textstyle for the week day text
   final TextStyle? style;
+
+  /// Custom textstyle for the week day text selected
+  final TextStyle? styleSelected;
 
   ///Custom Height
   final double? height;
@@ -37,7 +41,7 @@ class WeekDaySelector extends StatefulWidget {
   final BoxBorder? border;
 
   ///Function to listen for selected day
-  final Function(String) onSubmitted;
+  final Function(WeekDaysList) onSubmitted;
 
   @override
   State<WeekDaySelector> createState() => _WeekDaySelectorState();
@@ -46,43 +50,79 @@ class WeekDaySelector extends StatefulWidget {
 class _WeekDaySelectorState extends State<WeekDaySelector> {
   ///Week day list
   List<WeekDaysList> weekDays = [
-    WeekDaysList(week: "S", isSelected: false),
-    WeekDaysList(week: "M", isSelected: false),
-    WeekDaysList(week: "T", isSelected: false),
-    WeekDaysList(week: "W", isSelected: false),
-    WeekDaysList(week: "T", isSelected: false),
-    WeekDaysList(week: "F", isSelected: false),
-    WeekDaysList(week: "S", isSelected: false),
+    WeekDaysList(week: "S", name: "sunday", isSelected: false),
+    WeekDaysList(week: "M", name: "monday", isSelected: false),
+    WeekDaysList(week: "T", name: "tuesday", isSelected: false),
+    WeekDaysList(week: "W", name: "wednesday", isSelected: false),
+    WeekDaysList(week: "T", name: "thursday", isSelected: false),
+    WeekDaysList(week: "F", name: "friday", isSelected: false),
+    WeekDaysList(week: "S", name: "saturday", isSelected: false),
   ];
 
+  ///Select on drag
+  bool select = true;
+
   ///Function to select weekday
-  selectWeekDays(int index) {
+  selectWeekDays(int index, {bool? isSelected}) {
+    if (isSelected != null) {
+      setState(() {
+        weekDays[index].isSelected = isSelected;
+      });
+      return;
+    }
+
     if (weekDays[index].isSelected) {
-      weekDays[index].isSelected = false;
-      setState(() {});
+      setState(() {
+        weekDays[index].isSelected = false;
+      });
     } else {
-      weekDays[index].isSelected = true;
-      setState(() {});
+      setState(() {
+        weekDays[index].isSelected = true;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    //default width
+    final defaultWith = (MediaQuery.of(context).size.width - 70) / 7;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(
         weekDays.length,
         (index) {
-          return InkWell(
+          return GestureDetector(
             onTap: () {
               selectWeekDays(index);
-              widget.onSubmitted(weekDays[index].week);
+              widget.onSubmitted(weekDays[index]);
+            },
+            onPanStart: (details) {
+              selectWeekDays(index);
+              widget.onSubmitted(weekDays[index]);
+              select = weekDays[index].isSelected;
+            },
+            onPanUpdate: (details) {
+              double wWidth = widget.width ?? defaultWith;
+              double width =
+                  (wWidth + (details.localPosition.dx < wWidth + 5 ? 0 : 15));
+
+              int xDrag = (details.localPosition.dx / width).round();
+              int indexDrag = index + xDrag;
+              if (indexDrag < 0) indexDrag = 0;
+              if (indexDrag > 6) indexDrag = 6;
+              if (weekDays[indexDrag].isSelected == !select) {
+                selectWeekDays(indexDrag, isSelected: select);
+                widget.onSubmitted(weekDays[indexDrag]);
+              }
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: Container(
-                height: widget.height ?? 25,
-                width: widget.height ?? 25,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+                height: widget.height ?? defaultWith,
+                width: widget.width ?? defaultWith,
                 decoration: BoxDecoration(
                   shape: widget.shape ?? BoxShape.circle,
                   border: widget.border,
@@ -91,10 +131,14 @@ class _WeekDaySelectorState extends State<WeekDaySelector> {
                       : widget.dayUnselectedColor ?? Colors.transparent,
                 ),
                 child: Center(
-                  child: Text(
-                    weekDays[index].week,
-                    style: widget.style,
-                  ),
+                  child: Text(weekDays[index].week,
+                      style: weekDays[index].isSelected
+                          ? widget.styleSelected ??
+                              const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              )
+                          : widget.style),
                 ),
               ),
             ),
