@@ -84,7 +84,9 @@ class _WeekDaySelectorState extends State<WeekDaySelector> {
 
   @override
   Widget build(BuildContext context) {
+    //default width
     final defaultWith = (MediaQuery.of(context).size.width - 70) / 7;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(
