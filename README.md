@@ -23,15 +23,13 @@ In your `pubspec.yaml` file, add the following dependency:
 
 ```yaml
 dependencies:
-  flutter_weekday_selector: ^0.0.4
+  flutter_weekday_selector: ^0.0.5
 ```
 
 Call the WeekDaySelector widget where you can to integrate the widget
 
 ```dart
 child : WeekDaySelector(
-    onSubmitted: (day) {
-
-          },
+    onSubmitted: (day) {},
 )
 ```
