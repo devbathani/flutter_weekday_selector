@@ -15,7 +15,7 @@ TODO: This package will provide flutter developer a quick way to make a week day
 
 # flutter_weekday_selector
 
-![Demo Video](https://www.canva.com/design/DAF2FzrORNA/HW6-Bu_DNe2f1Q7b0LrtnQ/watch?utm_content=DAF2FzrORNA&utm_campaign=designshare&utm_medium=link&utm_source=editor)
+![Demo Video](https://shorturl.at/FIKP3)
 
 ## Installation
 
@@ -23,7 +23,7 @@ In your `pubspec.yaml` file, add the following dependency:
 
 ```yaml
 dependencies:
-  flutter_weekday_selector: ^0.0.6
+  flutter_weekday_selector: ^0.0.7
 ```
 
 Call the WeekDaySelector widget where you can to integrate the widget
