@@ -1,6 +1,6 @@
 name: flutter_weekday_selector
 description: This package will provide flutter developer a quick way to make a week day selection functionality.
-version: 0.0.9
+version: 0.0.10
 homepage: https://github.com/devbathani/flutter_weekday_selector
 
 environment:
@@ -22,8 +22,8 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   # To add assets to your package, add an assets section, like this:
-  assets:
-    - giphy.gif
+  # assets:
+  #   - giphy.gif
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages
