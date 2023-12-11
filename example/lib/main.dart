@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Week Day Selector',
+      title: 'Flutter Week Day Selector with Controller',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -32,13 +32,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<String> daysSelected = [];
+  WeekDaySelectorController weekDaySelectorController =
+      WeekDaySelectorController();
+  WeekDaySelectorController weekDaySelectorController2 =
+      WeekDaySelectorController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("Flutter Week Day Selector"),
+        title: const Text("Flutter Week Day Selector with Controller"),
       ),
       body: Center(
         child: Column(
@@ -48,10 +52,11 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text("Select Week Days - Example shape circle"),
             ),
             WeekDaySelector(
+              controller: weekDaySelectorController,
               width: 300,
               height: 50,
               shape: BoxShape.circle,
-              weekDayStart: WeekDayName.monday,
+              weekDayStart: WeekDayName.sunday,
               onSubmitted: (day) {
                 if (kDebugMode) {
                   print(
@@ -87,10 +92,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   "Select Week Days - Example shape rectangle & start on sunday"),
             ),
             WeekDaySelector(
+              controller: weekDaySelectorController2,
               width: 300,
               height: 100,
               shape: BoxShape.rectangle,
-              weekDayStart: WeekDayName.sunday,
+              weekDayStart: WeekDayName.monday,
               onSubmitted: (day) {
                 if (kDebugMode) {
                   print(
@@ -100,6 +106,35 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(
               height: 20,
+            ),
+            Row(
+              children: [
+                const Spacer(),
+                TextButton(
+                    onPressed: () {
+                      weekDaySelectorController2.setSaturday(isSelected: true);
+                      weekDaySelectorController2.setSunday(isSelected: true);
+                    },
+                    child: const Text("select weekend")),
+                TextButton(
+                    onPressed: () {
+                      weekDaySelectorController2.setSaturday(isSelected: false);
+                      weekDaySelectorController2.setSunday(isSelected: false);
+                    },
+                    child: const Text("unselect weekend")),
+                const Spacer()
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: SizedBox(
+                width: 500,
+                child: Divider(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+              ),
             ),
           ],
         ),
