@@ -23,7 +23,7 @@ In your `pubspec.yaml` file, add the following dependency:
 
 ```yaml
 dependencies:
-  flutter_weekday_selector: ^0.0.10
+  flutter_weekday_selector: ^0.0.11
 ```
 
 Call the WeekDaySelector widget where you can to integrate the widget
